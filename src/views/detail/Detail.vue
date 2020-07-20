@@ -1,7 +1,7 @@
 <template>
   <div class="detail">
     <detail-nav-bar/>
-    <img :src="good.w_img" alt="">
+    <img :src="good.w_id" alt="">
   </div>
 </template>
 
