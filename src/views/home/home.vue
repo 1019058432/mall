@@ -25,7 +25,7 @@
                     @tabControlClick="tabContrlE"
                     ref="tabControl2"
         />
-        <GoodsList  :goods="goods[tabControlDataIndex].list"/>
+        <GoodsList   :goods="goods[tabControlDataIndex].list"/>
       </b-scroll>
       <scroll-top @click.native="backTop" v-show="isShowBackTop" />
   </div>
@@ -95,7 +95,7 @@
           //获取分类（未使用）
           let class_list=res.s_class_list;
           //获取商品信息
-          let wares=res.wares;
+          let wares=res.goods;
           this.goods[type].list.push(...wares);
           this.goods[type].page+=1;
 

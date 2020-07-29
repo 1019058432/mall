@@ -1,10 +1,10 @@
 <template>
   <div class="goodsListItem" @click="goodClick">
-    <img :src="good.w_img" alt="">
-      <p>{{good.w_name}}</p>
+    <img v-if="good.imgList"  :src="good.imgList[0]" alt="~assets/img/home/loading.gif">
+      <p>{{good.g_name}}</p>
       <div>
-        <span>￥{{good.w_price}}元</span>
-        <span>人气：{{good.w_talk}}</span>
+        <span>￥{{good.g_newprice}}元</span>
+        <span>人气：{{good.comments}}</span>
       </div>
   </div>
 </template>
@@ -20,9 +20,18 @@
         }
       }
     },
+    data(){
+      return{
+      }
+    },
+    computed:{
+      // loadOver(){
+      //   return Object.keys(this.good).length !==0&&this.good.imgList!==undefined
+      // }
+    },
     methods:{
       goodClick(){
-        this.$router.push('/detail/'+this.good.w_id)
+        this.$router.push('/detail/'+this.good.g_id)
       }
     }
   }

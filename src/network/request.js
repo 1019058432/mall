@@ -30,6 +30,7 @@ export function request2(config) {
 
   })
   instance.interceptors.response.use(result =>{
+    // console.log(result);
     return result.data
   },error => {
     console.log(error);

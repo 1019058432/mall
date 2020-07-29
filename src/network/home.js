@@ -6,7 +6,7 @@ export function getMultipleData() {
 }
 export function getHomeGoods(type,page) {
   return request2({
-    url: '/index.php/Admin/Public/shell',
+    url: '/index.php/APIData/API/shell',
     params:{
       type,
       page

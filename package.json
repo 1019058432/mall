@@ -11,7 +11,9 @@
     "better-scroll": "^1.15.2",
     "core-js": "^3.6.5",
     "lodash": "^4.17.19",
+    "swiper": "^6.0.4",
     "vue": "^2.6.11",
+    "vue-awesome-swiper": "^4.1.1",
     "vue-router": "^3.3.4"
   },
   "devDependencies": {

@@ -7,6 +7,8 @@ body{
   --color-text:#666;
   --color-tink:#FF8E97;
   --font-size:14px;
+  --small-font-size:8px;
+  --color-font:#090909;
 }
 p{
   color: var(--color-text);
@@ -15,4 +17,7 @@ a{
   text-decoration: none;
   color: var(--color-text);
   font-size: var(--font-size);
+}
+li{
+  list-style: none;
 }
