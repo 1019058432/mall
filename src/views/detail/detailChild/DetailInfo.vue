@@ -26,11 +26,14 @@
            @on-close="showViewServer"
            ref="serverModal"
     >
-      <ul>
-        <li v-for="(item,index) in goodInfo.serverList" :key="index">
-          {{item}}
-        </li>
-      </ul>
+      <div>
+        <p align="center">服务说明</p>
+        <ul>
+          <li v-for="(item,index) in goodInfo.serverList" :key="index">
+            {{item}}
+          </li>
+        </ul>
+      </div>
     </modal>
 <!--    商品颜色尺码-->
     <div class="detail-color-size plr10" @click="showViewColorSize">
@@ -58,6 +61,27 @@
         </ul>
       </div>
     </modal>
+<!--    店家信息-->
+    <div class="shopinfo">
+      <div class="shopimg">
+        <img :src="goodInfo.log" alt="">
+      </div>
+      <div class="shop-info-detail">
+        <p class="shop-name">{{goodInfo.name}}</p>
+        <div class="star-info">
+          <span>
+            <img src="~assets/img/detail/star.png" v-for="(item,index) in starNumb" class="star" alt="">
+          </span>|
+          <span>{{goodInfo.stock}}</span>
+        </div>
+        <div class="shop-tip">
+          <span>{{goodInfo.follow ? goodInfo.follow : "9999+人关注"}}</span>
+          <span>累计销量{{goodInfo.sellnum}}+</span>
+          <span>{{starCommit}}</span>
+        </div>
+      </div>
+
+    </div>
   </div>
 </template>
 
@@ -84,19 +108,42 @@
     },
     mounted() {
     },
+    computed:{
+      starNumb(){
+        if (this.goodInfo.star ===null || this.goodInfo.star ===undefined){
+          return 5
+        }else {
+          return this.goodInfo.star
+        }
+      },
+      starCommit(){
+        switch (this.goodInfo.star) {
+          case 0:
+            return "零星新店";
+          case 1:
+            return "一星新店";
+          case 2:
+            return "二星新店";
+          case 3:
+            return "三星新店";
+          case 4:
+            return "四星好店";
+          default:
+            return "五星好店"
+
+        }
+      }
+    },
     methods:{
       showViewServer(){
         let serverModal=this.$refs.serverModal;
         this.isShowServer=!this.isShowServer;
         serverModal.showModal();
-        console.log(22222);
       },
       showViewColorSize(){
         let ColorSizeModal=this.$refs.ColorSizeModal;
         this.isShowColorSize=!this.isShowColorSize;
         ColorSizeModal.showModal();
-        console.log(33333);
-
       },
     }
   }
@@ -156,7 +203,50 @@
     vertical-align: middle;
     width: 15px;
   }
-
+  .shopinfo{
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-end;
+  }
+  .shopimg{
+    margin: 0 10px;
+  }
+  .shopimg img{
+    width: 57px;
+    margin: auto 0;
+    position: relative;
+    bottom: -4px;
+  }
+  .shop-info-detail div{
+    font-size: 10px;
+  }
+  .shop-name{
+    margin-top: 15px;
+    margin-bottom: 5px;
+  }
+  .star-info{
+    color: var(--color-text);
+  }
+  .star-info span{
+    margin-right: 10px;
+  }
+  .star-info span:nth-child(n+2){
+    margin-left: 5px;
+  }
+  .shop-tip{
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+  .shop-tip span{
+    border-radius: 5px ;
+    padding: 0 3px;
+    margin-right: 5px;
+    color: #FF396A;
+    border: #A0A0A0A0 solid 1px;
+  }
+  .star{
+    width: 10px;
+  }
   .small-font-size{
     font-size: var(--small-font-size);
   }

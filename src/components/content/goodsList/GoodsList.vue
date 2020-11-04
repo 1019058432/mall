@@ -1,23 +1,41 @@
 <template>
   <div class="goodsList">
-    <goods-list-item  v-for="(item,index) in goods" v-bind:good="item" :key="index"/>
+    <GoodsItem v-if="goods.length===40"
+               v-for="(item) in goods"
+               :goods-item="item"
+    />
+    <goods-list-item v-if="goods.length===30"
+      v-for="(item) in goods"
+      v-bind:good="item"
+
+    />
+
   </div>
 </template>
 
 <script>
   import GoodsListItem from "./GoodsListItem";
+  import GoodsItem from "./GoodsItem";
   export default {
     name: "GoodsList",
     components: {
-      GoodsListItem
+      GoodsListItem,
+      GoodsItem
+    },
+    data(){
+      return{
+        isCategory:false
+      }
     },
     props:{
-      goods:{
-        type:Array,
-        default(){
-          return []
-        }
-      }
+      goods:null
+    },
+    activated() {
+      this.isCategory = this.goods.length === 40;
+    },
+    created() {
+
+      console.log(this.isCategory);
     }
   }
 </script>

@@ -1,6 +1,9 @@
 <template>
   <div class="goodsListItem" @click="goodClick">
-    <img v-if="good.imgList"  :src="good.imgList[0]" alt="~assets/img/home/loading.gif">
+    <img v-if="good.imgList"
+         v-lazy="good.imgList[0]"
+         @load="imgLoad"
+         alt="">
       <p>{{good.g_name}}</p>
       <div>
         <span>￥{{good.g_newprice}}元</span>
@@ -10,6 +13,7 @@
 </template>
 
 <script>
+  import {EventBus} from "common/Bus/bus"
   export default {
     name: "GoodsListItem",
     props:  {
@@ -25,13 +29,19 @@
       }
     },
     computed:{
-      // loadOver(){
-      //   return Object.keys(this.good).length !==0&&this.good.imgList!==undefined
-      // }
     },
     methods:{
       goodClick(){
         this.$router.push('/detail/'+this.good.g_id)
+      },
+      imgLoad(){
+        if (this.$route.path.indexOf("home")===1){
+          EventBus.$emit('homeimgLoad')
+        }
+        if (this.$route.path.indexOf("detail")===1){
+          EventBus.$emit('detailimgLoad')
+        }
+
       }
     }
   }

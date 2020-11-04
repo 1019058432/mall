@@ -1,15 +1,23 @@
 import {request2} from "./request";
 
 export function getDetail(wid) {
-  return request2({
-    url: '/index.php/APIData/API/detail',
-    params:{
-      wid
-    }
-  })
-
+    return request2({
+      url: '/index.php/APIData/API/detail',
+      params:{
+        wid
+      },
+    })
 }
-
+export function getDetailGoods(type,page) {
+  return request2({
+      url: '/index.php/APIData/API/shell',
+      params:{
+        type,
+        page
+      }
+    }
+  )
+}
 export class Good{
   constructor(base,topimg,img,color,server,size,params) {
     this.id=base.g_id;

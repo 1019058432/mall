@@ -34,9 +34,15 @@
         currentIndex: 0
       }
     },
+    mounted() {
+      this.$nextTick(()=>{
+        this.titleClick(0)
+      })
+    },
     methods:{
       titleClick(index){
         this.currentIndex= index
+        this.$emit('detailNavClick',index)
       },
       backLastView(){
         this.$router.back()

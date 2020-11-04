@@ -43,6 +43,9 @@
   import ScrollTop from "components/common/scroll/ScrollTop";
 
   import {getMultipleData,getHomeGoods} from "network/home";
+  import {EventBus} from "common/Bus/bus"
+  import {debunce} from "common/utils/debounce"
+  // import {imgMixin} from "common/Mixin/imgLoadmixin";
 
   export default {
     name: "home",
@@ -58,7 +61,8 @@
         tabControlDataIndex: '0',
         isShowBackTop: false,
         tabControlTop: 0, //距离父亲顶部距离
-        isTabFixed: false
+        isTabFixed: false,
+        timer:null
       }
     },
     components:{
@@ -72,7 +76,6 @@
       ScrollTop
     },
     created() {
-      document.title="首页";
       // 获取多数据
       this.getMultipleData();
       this.getHomeGoods('0');
@@ -80,8 +83,21 @@
       this.getHomeGoods('2')
     },
     mounted() {
-
+      //为减少重复代码使用混入（已注释）
+      const reflash=debunce(()=>{
+        //刷新scroll高度和加载更多
+        this.$refs.scroll.finishAll()
+      },300)
+      EventBus.$on("homeimgLoad",()=>{
+        reflash();
+      })
     },
+    activated() {
+      if (this.$refs){
+        this.$refs.scroll.finishAll()
+      }
+    },
+    // mixins:[imgMixin],
     methods: {
       getMultipleData(){
         getMultipleData().then(result =>{
@@ -98,9 +114,6 @@
           let wares=res.goods;
           this.goods[type].list.push(...wares);
           this.goods[type].page+=1;
-
-          //刷新scroll高度和加载更多
-          this.$refs.scroll.finishAll()
         });
 
       },

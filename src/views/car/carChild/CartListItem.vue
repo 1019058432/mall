@@ -1,14 +1,14 @@
 <template>
   <div class="cart-list-item">
     <div class="item-selector">
-      <check-button @checkBtnClick="checkedChange" v-model="product.checked" />
+      <check-button @click.native="checkedChange" :isChecked="product.check"/>
     </div>
     <div class="item-img">
-      <img :src="product.image" alt="图片" />
+      <img :src="product.img" alt="图片" />
     </div>
     <div class="item-info">
       <div class="item-title">{{product.title}}</div>
-      <div class="item-desc">{{product.desc}}</div>
+      <div class="item-desc">{{product.commit}}</div>
       <div class="info-bottom">
         <div class="item-price left">￥{{product.price}}</div>
         <div class="item-count right">x{{product.count}}</div>
@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import CheckButton from "./CheckButton";
+import CheckButton from "components/common/checkbutton/CheckButton";
 export default {
   name: "CartListItem",
   props: {
@@ -38,7 +38,7 @@ export default {
   },
   methods: {
     checkedChange(){
-      this.product.checked=!this.product.checked;
+      this.product.check=!this.product.check;
     }
   }
 };
@@ -85,6 +85,8 @@ padding: 5px;
   margin-top: 15px;
 }
 .info-bottom{
+  display: flex;
+  justify-content: space-between;
   margin-top: 10px;
   position: absolute;
   bottom: 10px;
@@ -92,6 +94,6 @@ padding: 5px;
   right: 10px;
 }
 .info-bottom .item-price{
-  color: var(--color-tint);
+  color: var(--color-tink);
 }
 </style>
